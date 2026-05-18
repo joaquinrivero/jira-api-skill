@@ -266,7 +266,7 @@ def get_createmeta(client: Client, project: str) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Adobe Jira REST API client")
+    parser = argparse.ArgumentParser(description="Jira REST API client")
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_get = sub.add_parser("get-issue", help="fetch an issue by key")
@@ -313,13 +313,13 @@ def main() -> None:
     args = build_parser().parse_args()
 
     client = Client(
-        base_url=get_env("ADOBE_JIRA_URL").rstrip("/"),
+        base_url=get_env("JIRA_URL").rstrip("/"),
         headers={
-            "Authorization": f"Bearer {get_env('ADOBE_JIRA_PAT')}",
+            "Authorization": f"Bearer {get_env('JIRA_PAT')}",
             "Content-Type": "application/json",
             "Accept": "application/json",
         },
-        verify_ssl=get_env("ADOBE_JIRA_VERIFY_SSL", "true").lower() == "true",
+        verify_ssl=get_env("JIRA_VERIFY_SSL", "true").lower() == "true",
     )
 
     if args.command == "get-issue":
